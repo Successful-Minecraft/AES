@@ -115,15 +115,12 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
 
 	for (i = 0; i < Nk; ++i)
 	{
-		printf("// Start from here // \n");
+		
 		RoundKey[(i * 4) + 0] = Key[(i * 4) + 0];
 		RoundKey[(i * 4) + 1] = Key[(i * 4) + 1];
 		RoundKey[(i * 4) + 2] = Key[(i * 4) + 2];
 		RoundKey[(i * 4) + 3] = Key[(i * 4) + 3];
-		printf("%d\n", Key[(i * 4) + 0]);
-		printf("%d\n", Key[(i * 4) + 1]);
-		printf("%d\n", Key[(i * 4) + 2]);
-		printf("%d\n", Key[(i * 4) + 3]);
+	
 	}
 
 	// All other round keys are found from the previous round keys.
@@ -175,7 +172,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
 
 void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key)
 {
-	printf("the bug is here\n");
+
 	KeyExpansion(ctx->RoundKey, key);
 }
 
@@ -358,7 +355,7 @@ static void Cipher(state_t* state, const uint8_t* RoundKey)
 		ShiftRows(state);
 		MixColumns(state);
 		AddRoundKey(round, state, RoundKey);
-		printf("*\n");
+		
 	}
 
 	// The last round is given below.
@@ -454,7 +451,7 @@ static int test_encrypt_ecb(void)
 	uint8_t in[] = { 0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17, 0x2a };
 	struct AES_ctx ctx;
 
-	printf("the bug is here 2\n");
+	
 	AES_init_ctx(&ctx, key);
 	AES_ECB_encrypt(&ctx, in);
 
@@ -486,7 +483,7 @@ static int test_decrypt_ecb(void)
 	AES_ECB_decrypt(&ctx, in);
 
 	printf("ECB decrypt: ");
-	phex(in);
+
 	if (0 == memcmp((char*)out, (char*)in, 16)) {
 		printf("SUCCESS!\n");
 		return(0);
